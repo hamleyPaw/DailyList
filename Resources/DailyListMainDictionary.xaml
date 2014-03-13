@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:HamleyPaw.DailyList.Converters"
+                    xmlns:viewModels="clr-namespace:HamleyPaw.DailyList.ViewModels"
+                    xmlns:views="clr-namespace:HamleyPaw.DailyList.Views">
+    <converters:VisibleOnNullConverter
+        x:Key="VisibleOnNullConverter" />
+    <converters:CollapsedOnNullConverter
+        x:Key="CollapsedOnNullConverter" />
+    <converters:LogicInverterConverter
+        x:Key="LogicInverterConverter" />
+    <Style
+        TargetType="TextBlock">
+        <Style.Setters>
+            <Setter
+                Property="FontFamily"
+                Value="Courier New" />
+            <Setter
+                Property="VerticalAlignment"
+                Value="Center" />
+            <Setter
+                Property="Margin"
+                Value="5, 0, 5, 0" />
+        </Style.Setters>
+    </Style>
+    <Style
+        TargetType="Button">
+        <Style.Setters>
+            <Setter
+                Property="FontFamily"
+                Value="Courier New" />
+            <Setter
+                Property="VerticalAlignment"
+                Value="Center" />
+        </Style.Setters>
+    </Style>
+    <DataTemplate
+        DataType="{x:Type viewModels:ActionItemListViewModel}">
+        <views:ActionItemListView />
+    </DataTemplate>
+    <DataTemplate
+        DataType="{x:Type viewModels:ActionItemViewModel}">
+        <views:ActionItemView />
+    </DataTemplate>
+    <DataTemplate
+        DataType="{x:Type viewModels:ActionItemActionListViewModel}">
+        <views:ActionItemActionListView />
+    </DataTemplate>
+    <DataTemplate
+        DataType="{x:Type viewModels:ActionItemActionViewModel}">
+        <views:ActionItemActionView />
+    </DataTemplate>
+</ResourceDictionary>
