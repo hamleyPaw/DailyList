@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-
+using System.Windows.Media;
 using Microsoft.Win32;
 
 using HamleyPaw.DailyList.Views;
@@ -15,7 +15,7 @@ namespace HamleyPaw.DailyList.Contexts {
         private Stack<Window> windowStack = new Stack<Window>();
 
         public UserInterfaceContext(Window mainWindow) {
-            this.windowStack.Push(mainWindow);
+            windowStack.Push(mainWindow);
         }
 
         #region IUserInterfaceContext Members
@@ -28,7 +28,39 @@ namespace HamleyPaw.DailyList.Contexts {
             }
         }
 
+        void IUserInterfaceContext.GetText(string title, string message, Action<string> closeAction) {
+
+        }
+
         #endregion
+
+        private void ShowDialog(Window dialog, bool subDialog = false)
+        {
+            dialog.Closed += (sender, args) =>
+            {
+                windowStack.Pop();
+            };
+
+            if(subDialog && windowStack.Count > 0)
+            {
+                dialog.Owner = windowStack.Peek();
+                dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+                var mask = new SolidColorBrush(Colors.White);
+                mask.Opacity = 0.5;
+
+                windowStack.Peek().OpacityMask = mask;
+            }
+
+            windowStack.Push(dialog);
+
+            dialog.ShowDialog();
+
+            if(windowStack.Count > 0)
+            {
+                windowStack.Peek().OpacityMask = null;
+            }
+        }
 
         private void ShowDialog(Window dialog, Action<bool> onClosed, bool subDialog = false) {
             dialog.Closed += (sender, args) => {
@@ -43,7 +75,7 @@ namespace HamleyPaw.DailyList.Contexts {
                 dialog.Owner = windowStack.Peek();
                 dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-                var mask = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White);
+                var mask = new SolidColorBrush(Colors.White);
                 mask.Opacity = 0.5;
 
                 windowStack.Peek().OpacityMask = mask;

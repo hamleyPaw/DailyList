@@ -15,12 +15,9 @@ using System.Windows.Shapes;
 
 namespace HamleyPaw.DailyList.Views
 {
-    /// <summary>
-    /// Interaction logic for ActionItemListView.xaml
-    /// </summary>
-    public partial class ActionItemActionListView : UserControl
+    public partial class ActionsView : UserControl
     {
-        public ActionItemActionListView()
+        public ActionsView()
         {
             InitializeComponent();
         }

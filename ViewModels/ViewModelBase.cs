@@ -6,16 +6,16 @@ using HamleyPaw.DailyList.ViewModels.Contexts;
 
 namespace HamleyPaw.DailyList.ViewModels {
     public abstract class ViewModelBase : INotifyPropertyChanged {
-        private readonly IViewModelContext context;
+        private readonly IViewModelContext _Context;
 
-        public ViewModelBase() { }
+        protected ViewModelBase() {}
 
-        public ViewModelBase(IViewModelContext context) {
-            this.context = context;
+        protected ViewModelBase(IViewModelContext context) {
+            _Context = context;
         }
 
         public IViewModelContext Context {
-            get { return context; }
+            get { return _Context; }
         }
 
         // ?? Does this need to be at the Base level
@@ -23,7 +23,7 @@ namespace HamleyPaw.DailyList.ViewModels {
         public event EventHandler RequestClose;
 
         protected void OnRequestClose() {
-            EventHandler handler = this.RequestClose;
+            EventHandler handler = RequestClose;
             if (handler != null)
                 handler(this, EventArgs.Empty);
         }
@@ -40,8 +40,8 @@ namespace HamleyPaw.DailyList.ViewModels {
         /// </summary>
         /// <param name="propertyName">The property that has a new value.</param>
         protected virtual void OnPropertyChanged(string propertyName) {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace HamleyPaw.DailyList.ViewModels {
         /// </summary>
         /// <param name="expression">A lambda expression of the propery that has a new value.</param>
         protected void OnPropertyChanged(Expression<Func<object>> expression) {
-            if (this.PropertyChanged != null) {
-                this.OnPropertyChanged(PropertyNameHelper.GetPropertyName(expression));
+            if (PropertyChanged != null) {
+                OnPropertyChanged(PropertyNameHelper.GetPropertyName(expression));
             }
         }
 

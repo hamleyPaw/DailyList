@@ -3,13 +3,17 @@
                     xmlns:converters="clr-namespace:HamleyPaw.DailyList.Converters"
                     xmlns:viewModels="clr-namespace:HamleyPaw.DailyList.ViewModels"
                     xmlns:views="clr-namespace:HamleyPaw.DailyList.Views">
+    <!-- Converters -->
     <converters:VisibleOnNullConverter
         x:Key="VisibleOnNullConverter" />
     <converters:CollapsedOnNullConverter
         x:Key="CollapsedOnNullConverter" />
     <converters:LogicInverterConverter
         x:Key="LogicInverterConverter" />
+    
+    <!-- Styles -->
     <Style
+        x:Key="GeneralTextBlockStyle"
         TargetType="TextBlock">
         <Style.Setters>
             <Setter
@@ -18,10 +22,22 @@
             <Setter
                 Property="VerticalAlignment"
                 Value="Center" />
-            <Setter
-                Property="Margin"
-                Value="5, 0, 5, 0" />
         </Style.Setters>
+    </Style>
+    <!-- NB. This is just a placeholder to cascade the style to all
+    TextBlocks without the need for keying them. -->
+    <Style
+        TargetType="TextBlock"
+        BasedOn="{StaticResource GeneralTextBlockStyle}">
+    </Style>
+    
+    <Style
+        x:Key="SummaryInfoText"
+        BasedOn="{StaticResource GeneralTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="LightBlue" />
     </Style>
     <Style
         TargetType="Button">
@@ -34,20 +50,22 @@
                 Value="Center" />
         </Style.Setters>
     </Style>
+    
+    <!-- View Templates -->
     <DataTemplate
-        DataType="{x:Type viewModels:ActionItemListViewModel}">
-        <views:ActionItemListView />
+        DataType="{x:Type viewModels:DailyListItemsViewModel}">
+        <views:DailyListItemsView />
     </DataTemplate>
     <DataTemplate
-        DataType="{x:Type viewModels:ActionItemViewModel}">
-        <views:ActionItemView />
+        DataType="{x:Type viewModels:DailyListItemViewModel}">
+        <views:DailyListItemView />
     </DataTemplate>
     <DataTemplate
-        DataType="{x:Type viewModels:ActionItemActionListViewModel}">
-        <views:ActionItemActionListView />
+        DataType="{x:Type viewModels:ActionsViewModel}">
+        <views:ActionsView />
     </DataTemplate>
     <DataTemplate
-        DataType="{x:Type viewModels:ActionItemActionViewModel}">
-        <views:ActionItemActionView />
+        DataType="{x:Type viewModels:ActionViewModel}">
+        <views:ActionView />
     </DataTemplate>
 </ResourceDictionary>

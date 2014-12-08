@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace HamleyPaw.DailyList.Models
 {
-    public enum ActionItemActionType
+    public enum DailyListItemActionType
     {
         [Description("Started")]
         Start = 0,

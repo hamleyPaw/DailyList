@@ -16,6 +16,21 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -39,10 +54,17 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="NodaTime">
       <HintPath>packages\NodaTime.1.2.0\lib\net35-Client\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -68,22 +90,36 @@
     <Compile Include="Converters\VisibleOnNullConverter.cs" />
     <Compile Include="Converters\CollapsedOnNullConverter.cs" />
     <Compile Include="Converters\LogicInverterConverter.cs" />
-    <Compile Include="Models\ActionItem.cs" />
-    <Compile Include="Models\ActionItemActionType.cs" />
-    <Compile Include="Models\ActionItemAction.cs" />
+    <Compile Include="Migrations\201410281208224_Initial.cs" />
+    <Compile Include="Migrations\201410281208224_Initial.Designer.cs">
+      <DependentUpon>201410281208224_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410281548294_AddDateFields.cs" />
+    <Compile Include="Migrations\201410281548294_AddDateFields.Designer.cs">
+      <DependentUpon>201410281548294_AddDateFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410281700142_SetCompletedDateTimeToNull.cs" />
+    <Compile Include="Migrations\201410281700142_SetCompletedDateTimeToNull.Designer.cs">
+      <DependentUpon>201410281700142_SetCompletedDateTimeToNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DailyListItem.cs" />
+    <Compile Include="Models\DailyListItemActionType.cs" />
+    <Compile Include="Models\DailyListItemAction.cs" />
+    <Compile Include="Models\DailyListContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SupportingTypes\ActionItemActionEventArgs.cs" />
+    <Compile Include="SupportingTypes\ItemActionEventArgs.cs" />
     <Compile Include="SupportingTypes\EnumExtensions.cs" />
-    <Compile Include="ViewModels\ActionItemListViewModel.cs" />
-    <Compile Include="ViewModels\ActionItemActionViewModel.cs" />
-    <Compile Include="ViewModels\ActionItemActionListViewModel.cs" />
-    <Compile Include="ViewModels\ActionItemViewModel.cs" />
-    <Compile Include="ViewModels\IUserInterfaceContext.cs" />
-    <Compile Include="ViewModels\IViewModelContext.cs" />
+    <Compile Include="ViewModels\DailyListItemsViewModel.cs" />
+    <Compile Include="ViewModels\ActionViewModel.cs" />
+    <Compile Include="ViewModels\ActionsViewModel.cs" />
+    <Compile Include="ViewModels\DailyListItemViewModel.cs" />
+    <Compile Include="ViewModels\Contexts\IUserInterfaceContext.cs" />
+    <Compile Include="ViewModels\Contexts\IViewModelContext.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -91,21 +127,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ActionItemListView.xaml">
+    <Page Include="Views\DailyListItemsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ActionItemView.xaml">
+    <Page Include="Views\DailyListItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ActionItemActionListView.xaml">
+    <Page Include="Views\ActionsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ActionItemActionView.xaml">
+    <Page Include="Views\ActionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddTextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -115,17 +155,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\ActionItemListView.xaml.cs">
-      <DependentUpon>ActionItemListView.xaml</DependentUpon>
+    <Compile Include="Views\DailyListItemsView.xaml.cs">
+      <DependentUpon>DailyListItemsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ActionItemView.xaml.cs">
-      <DependentUpon>ActionItemView.xaml</DependentUpon>
+    <Compile Include="Views\DailyListItemView.xaml.cs">
+      <DependentUpon>DailyListItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ActionItemActionListView.xaml.cs">
-      <DependentUpon>ActionItemActionListView.xaml</DependentUpon>
+    <Compile Include="Views\ActionsView.xaml.cs">
+      <DependentUpon>ActionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ActionItemActionView.xaml.cs">
-      <DependentUpon>ActionItemActionView.xaml</DependentUpon>
+    <Compile Include="Views\ActionView.xaml.cs">
+      <DependentUpon>ActionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTextView.xaml.cs">
+      <DependentUpon>AddTextView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -141,6 +184,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201410281208224_Initial.resx">
+      <DependentUpon>201410281208224_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410281548294_AddDateFields.resx">
+      <DependentUpon>201410281548294_AddDateFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410281700142_SetCompletedDateTimeToNull.resx">
+      <DependentUpon>201410281700142_SetCompletedDateTimeToNull.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -153,6 +205,24 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

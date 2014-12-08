@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HamleyPaw.DailyList.Views
 {
     /// <summary>
-    /// Interaction logic for ActionItemView.xaml
+    /// Interaction logic for AddTextView.xaml
     /// </summary>
-    public partial class ActionItemView : UserControl
+    public partial class AddTextView : Window
     {
-        public ActionItemView()
+        public AddTextView()
         {
             InitializeComponent();
         }

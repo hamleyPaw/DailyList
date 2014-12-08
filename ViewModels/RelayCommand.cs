@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace HamleyPaw.DailyList.ViewModels {
     public class RelayCommand : ICommand {
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        readonly Action<object> _Execute;
+        readonly Predicate<object> _CanExecute;
 
         /// <summary>
         /// Creates a new command that can always execute.
@@ -27,15 +24,15 @@ namespace HamleyPaw.DailyList.ViewModels {
             if (execute == null)
                 throw new ArgumentNullException("execute");
 
-            _execute = execute;
-            _canExecute = canExecute;
+            _Execute = execute;
+            _CanExecute = canExecute;
         }
 
         #region ICommand Members
 
         [DebuggerStepThrough]
         public bool CanExecute(object parameter) {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _CanExecute == null || _CanExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged {
@@ -44,7 +41,7 @@ namespace HamleyPaw.DailyList.ViewModels {
         }
 
         public void Execute(object parameter) {
-            _execute(parameter);
+            _Execute(parameter);
         }
 
         #endregion ICommand Members
