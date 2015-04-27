@@ -14,12 +14,12 @@ namespace HamleyPaw.DailyList.ViewModels {
         public MainViewModel(IViewModelContext context)
             : base(context)
         {
-            var dailyItemsVm = new DailyListItemsViewModel();
-            dailyItemsVm.ShowItemsForPeriod(DailyListTimePeriod.Today);
+            var dailyItemsVm = new DailyListItemsViewModel(context);
+            dailyItemsVm.ShowItemsForPeriod(DailyListTimePeriod.AllTime);
             DailyList = dailyItemsVm;
 
-            var actionsVm = new ActionsViewModel();
-            actionsVm.ShowActionsForPeriod(DailyListTimePeriod.Today);
+            var actionsVm = new ActionsViewModel(context);
+            actionsVm.ShowActionsForPeriod(DailyListTimePeriod.AllTime);
             ActionTimeline = actionsVm;
         }
 
@@ -94,7 +94,7 @@ namespace HamleyPaw.DailyList.ViewModels {
 
         public ICommand CloseCommand
         {
-            get { return _CloseCommand ?? (_CloseCommand = new RelayCommand(param => OnRequestClose())); }
+            get { return _CloseCommand ?? (_CloseCommand = new RelayCommand(param => OnRequestClose(true))); }
         }
 
         private RelayCommand _AddItemCommand;

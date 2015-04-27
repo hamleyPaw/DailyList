@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
-
+using HamleyPaw.DailyList.SupportingTypes;
 using HamleyPaw.DailyList.ViewModels;
 using HamleyPaw.DailyList.Contexts;
 using HamleyPaw.DailyList.Views;
@@ -21,11 +21,13 @@ namespace HamleyPaw.DailyList {
 
             // When the ViewModel asks to be closed, 
             // close the window.
-            EventHandler handler = null;
-            handler = delegate {
+            EventHandler<CloseViewModelEventArgs> handler = null;
+            
+            handler = (sender, args) => {
                 viewModel.RequestClose -= handler;
                 window.Close();
             };
+
             viewModel.RequestClose += handler;
 
             // Allow all controls in the window to 

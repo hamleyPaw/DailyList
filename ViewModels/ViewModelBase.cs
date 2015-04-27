@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
-
+using HamleyPaw.DailyList.SupportingTypes;
 using HamleyPaw.DailyList.ViewModels.Contexts;
 
 namespace HamleyPaw.DailyList.ViewModels {
@@ -20,12 +20,15 @@ namespace HamleyPaw.DailyList.ViewModels {
 
         // ?? Does this need to be at the Base level
         // ?? is anyone other than the Main View going to use it
-        public event EventHandler RequestClose;
+        public event EventHandler<CloseViewModelEventArgs> RequestClose;
 
-        protected void OnRequestClose() {
-            EventHandler handler = RequestClose;
+        protected void OnRequestClose(bool success) {
+            EventHandler<CloseViewModelEventArgs> handler = RequestClose;
+
             if (handler != null)
-                handler(this, EventArgs.Empty);
+            {
+                handler(this, new CloseViewModelEventArgs(success));
+            }
         }
 
         #region INotifyPropertyChanged Members

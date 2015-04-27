@@ -1,4 +1,7 @@
-﻿using HamleyPaw.DailyList.Models;
+﻿using System;
+using System.IO.Packaging;
+using HamleyPaw.DailyList.Models;
+using HamleyPaw.DailyList.ViewModels.Contexts;
 
 namespace HamleyPaw.DailyList.ViewModels
 {
@@ -6,16 +9,27 @@ namespace HamleyPaw.DailyList.ViewModels
     {
         private readonly DailyListItemAction _ItemToDisplay = null;
 
-        public ActionViewModel(DailyListItemAction itemToDisplay)
+        public ActionViewModel(DailyListItemAction itemToDisplay, IViewModelContext context)
+            : base(context)
         {
             _ItemToDisplay = itemToDisplay;
+        }
+
+        public string ItemText
+        {
+            get { return _ItemToDisplay.DailyListItem.ItemText ?? null; }
+        }
+
+        public DateTime ActionDateTimeUtc
+        {
+            get { return _ItemToDisplay.ActionDateTimeUtc; }
         }
 
         public string ActionTime
         {
             get
             {
-                return _ItemToDisplay.Time.ToString();
+                return _ItemToDisplay.Time.ToString("HH:mm (dd/MM/YYYY)", null);
             }
         }
 

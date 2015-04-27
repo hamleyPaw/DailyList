@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="HamleyPaw.DailyList.Views.ActionsView"
+    x:Class="HamleyPaw.DailyList.Views.DailyListItemsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,17 +10,16 @@
     d:DesignWidth="300">
     <UserControl.Resources>
         <CollectionViewSource
-            Source="{Binding Path=Actions}"
-            x:Key="ActionsByDate">
+            Source="{Binding Path=ItemsToDisplay}"
+            x:Key="ItemsByDate">
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription
-                    PropertyName="ActionDateTimeUtc"
-                    Direction="Descending" />
+                    PropertyName="CreatedDateTimeUtc" Direction="Descending" />
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </UserControl.Resources>
     <Grid>
         <ItemsControl
-            ItemsSource="{Binding Source={StaticResource ActionsByDate}}" />
+            ItemsSource="{Binding Source={StaticResource ItemsByDate}}" />
     </Grid>
 </UserControl>

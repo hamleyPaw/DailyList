@@ -42,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -102,6 +103,10 @@
     <Compile Include="Migrations\201410281700142_SetCompletedDateTimeToNull.Designer.cs">
       <DependentUpon>201410281700142_SetCompletedDateTimeToNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412101026227_AddRelatedFields.cs" />
+    <Compile Include="Migrations\201412101026227_AddRelatedFields.Designer.cs">
+      <DependentUpon>201412101026227_AddRelatedFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DailyListItem.cs" />
     <Compile Include="Models\DailyListItemActionType.cs" />
@@ -114,6 +119,7 @@
     </Compile>
     <Compile Include="SupportingTypes\ItemActionEventArgs.cs" />
     <Compile Include="SupportingTypes\EnumExtensions.cs" />
+    <Compile Include="SupportingTypes\CloseViewModelEventArgs.cs" />
     <Compile Include="ViewModels\DailyListItemsViewModel.cs" />
     <Compile Include="ViewModels\ActionViewModel.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
@@ -121,9 +127,20 @@
     <Compile Include="ViewModels\Contexts\IUserInterfaceContext.cs" />
     <Compile Include="ViewModels\Contexts\IViewModelContext.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NoteTextViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\DailyListItemEditView.xaml.cs">
+      <DependentUpon>DailyListItemEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NoteTextView.xaml.cs">
+      <DependentUpon>NoteTextView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\DailyListMainDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DailyListItemEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,6 +191,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NoteTextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -186,12 +207,17 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201410281208224_Initial.resx">
       <DependentUpon>201410281208224_Initial.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410281548294_AddDateFields.resx">
       <DependentUpon>201410281548294_AddDateFields.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410281700142_SetCompletedDateTimeToNull.resx">
       <DependentUpon>201410281700142_SetCompletedDateTimeToNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412101026227_AddRelatedFields.resx">
+      <DependentUpon>201412101026227_AddRelatedFields.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

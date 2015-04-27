@@ -28,18 +28,28 @@ namespace HamleyPaw.DailyList.Contexts {
             }
         }
 
-        void IUserInterfaceContext.GetText(string title, string message, Action<string> closeAction) {
+        void IUserInterfaceContext.GetNoteText(Action<string> onAcceptAction)
+        {
+            var noteTextVM = new NoteTextViewModel();
+            var noteTextView = new NoteTextView(noteTextVM);
 
+            noteTextVM.RequestClose += (sender, args) =>
+            {
+                if (args.Success && onAcceptAction != null)
+                {
+                    onAcceptAction(noteTextVM.NoteText);
+                }
+                noteTextView.Close();
+            };
+
+            ShowDialog(noteTextView, true);
         }
 
         #endregion
 
         private void ShowDialog(Window dialog, bool subDialog = false)
         {
-            dialog.Closed += (sender, args) =>
-            {
-                windowStack.Pop();
-            };
+            dialog.Closed += (sender, args) => windowStack.Pop();
 
             if(subDialog && windowStack.Count > 0)
             {

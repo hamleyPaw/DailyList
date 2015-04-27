@@ -1,0 +1,27 @@
+﻿<Window x:Class="HamleyPaw.DailyList.Views.AddTextView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddTextView" Height="300" Width="300">
+    <DockPanel>
+        <Grid
+            DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <Button
+                    Width="75"
+                    HorizontalAlignment="Right"
+                    Content="OK" />
+                <Button
+                    Width="75"
+                    HorizontalAlignment="Right"
+                    Content="Cancel" />
+            </StackPanel>
+        </Grid>
+        <TextBox />
+    </DockPanel>
+</Window>
